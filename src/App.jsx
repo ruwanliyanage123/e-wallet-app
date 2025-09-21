@@ -8,6 +8,7 @@ import Reports from "./pages/Reports";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { useState } from "react";
+import Footer from "./components/Footer";
 
 function App() {
     const [page, setPage] = useState("Dashboard");
@@ -34,6 +35,7 @@ function App() {
                                     {page === "Reports" && <Reports />}
                                 </main>
                             </div>
+                            <Footer />
                         </div>
                     }
                 />

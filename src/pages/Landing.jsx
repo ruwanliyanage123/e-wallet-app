@@ -1,3 +1,5 @@
+import Footer from "../components/Footer";
+
 export default function Landing() {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
@@ -59,9 +61,7 @@ export default function Landing() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-blue-600 text-center py-6 text-white">
-                © {new Date().getFullYear()} Ruwan Liyanage. All rights reserved.
-            </footer>
+            <Footer />
         </div>
     );
 }
