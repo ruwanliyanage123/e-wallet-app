@@ -1,9 +1,8 @@
 export default function Landing() {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
-            {/* Navbar */}
-            <nav className="bg-white shadow px-8 py-4 flex justify-between items-center">
-                <h1 className="text-2xl font-bold text-slate-800">Portfolio Hub</h1>
+            <nav className="bg-blue-600 shadow-md px-6 py-10 flex justify-between items-center">
+                <h1 className="text-xl font-bold text-white">e-wallet</h1>
                 <div className="space-x-4">
                     <a
                         href="/login"
@@ -11,16 +10,8 @@ export default function Landing() {
                     >
                         Login
                     </a>
-                    <a
-                        href="#features"
-                        className="px-4 py-2 border border-slate-300 text-slate-800 rounded-lg hover:bg-slate-100 transition"
-                    >
-                        Learn More
-                    </a>
                 </div>
             </nav>
-
-            {/* Hero */}
             <header className="flex flex-1 flex-col items-center justify-center text-center px-6">
                 <h2 className="text-4xl font-extrabold text-slate-800 mb-4">
                     Manage Your Investments with Ease
@@ -31,7 +22,7 @@ export default function Landing() {
                 </p>
                 <a
                     href="/login"
-                    className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition"
+                    className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
                 >
                     Get Started
                 </a>
@@ -68,8 +59,8 @@ export default function Landing() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-gray-100 text-center py-6 text-gray-600">
-                © {new Date().getFullYear()} Portfolio Hub. All rights reserved.
+            <footer className="bg-blue-600 text-center py-6 text-white">
+                © {new Date().getFullYear()} Ruwan Liyanage. All rights reserved.
             </footer>
         </div>
     );
