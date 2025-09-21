@@ -1,18 +1,11 @@
-
 module.exports = {
-  content: [
-    "./src/**/*.jsx",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        "my": "green",
+        sidebar: "oklch(51.8% 0.253 323.949)", // 👈 custom color
       },
-      dropShadow: {
-        "header-shadow": "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-        "product-shadow": "rgba(0, 0, 0, 0.24) 0px 3px 8px"
-      }
     },
   },
   plugins: [],
-}
+};
