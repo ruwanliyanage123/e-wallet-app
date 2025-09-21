@@ -1,5 +1,5 @@
 import StatCard from "../components/StatCart";
-import AssetTable from "../components/AssetTable";
+import AssetTable from "../components/assets/AssetTable";
 import AssetPieChart from "../components/AssetPieChart";
 
 export default function Dashboard() {
