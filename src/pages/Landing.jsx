@@ -3,7 +3,8 @@ import Footer from "../components/Footer";
 export default function Landing() {
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
-            <nav className="bg-blue-600 shadow-md px-6 py-10 flex justify-between items-center">
+            {/* Navbar */}
+            <nav className="bg-blue-600 shadow-md px-6 py-6 flex justify-between items-center">
                 <h1 className="text-xl font-bold text-white">e-wallet</h1>
                 <div className="space-x-4">
                     <a
@@ -14,20 +15,33 @@ export default function Landing() {
                     </a>
                 </div>
             </nav>
-            <header className="flex flex-1 flex-col items-center justify-center text-center px-6">
-                <h2 className="text-4xl font-extrabold text-slate-800 mb-4">
-                    Manage Your Investments with Ease
-                </h2>
-                <p className="text-lg text-gray-600 max-w-xl mb-6">
-                    Track your assets, monitor your portfolio performance, and stay in
-                    control of your financial future — all in one place.
-                </p>
-                <a
-                    href="/login"
-                    className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
-                >
-                    Get Started
-                </a>
+
+            {/* Hero Section with Background Image */}
+            <header
+                className="flex flex-col items-center justify-center text-center px-6 py-20 flex-1 bg-cover bg-center relative"
+                style={{
+                    backgroundImage:
+                        "url('https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg')",
+                }}
+            >
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+                <div className="relative z-10 max-w-2xl text-white">
+                    <h2 className="text-4xl font-extrabold mb-6">
+                        Manage Your Investments with Ease
+                    </h2>
+                    <p className="text-lg mb-8">
+                        Track your assets, monitor your portfolio performance, and stay in
+                        control of your financial future — all in one place.
+                    </p>
+                    <a
+                        href="/login"
+                        className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
+                    >
+                        Get Started
+                    </a>
+                </div>
             </header>
 
             {/* Features */}
