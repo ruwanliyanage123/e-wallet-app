@@ -8,7 +8,7 @@ export default function Sidebar({ setPage }) {
                         <li key={item}>
                             <button
                                 onClick={() => setPage(item)}
-                                className="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-300 hover:bg-slate-700 hover:text-white transition"
+                                className="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-300 hover:bg-blue-600 hover:text-white transition"
                             >
                                 {item}
                             </button>
