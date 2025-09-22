@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/authService";
+import { login } from "../services/api"; // ✅ updated import
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+        setLoading(true);
 
         try {
             const { token, user } = await login(email, password);
@@ -22,7 +24,9 @@ export default function Login() {
             // Redirect to dashboard
             navigate("/dashboard");
         } catch (err) {
-            setError(err.message);
+            setError(err.message || "Login failed");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -34,15 +38,14 @@ export default function Login() {
             >
                 <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 
-                {error && (
-                    <p className="mb-4 text-red-600 text-center">{error}</p>
-                )}
+                {error && <p className="mb-4 text-red-600 text-center">{error}</p>}
 
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                     className="w-full px-4 py-2 border rounded mb-4 focus:outline-none focus:ring focus:ring-blue-300"
                 />
 
@@ -51,14 +54,20 @@ export default function Login() {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                     className="w-full px-4 py-2 border rounded mb-6 focus:outline-none focus:ring focus:ring-blue-300"
                 />
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
+                    disabled={loading}
+                    className={`w-full text-white font-semibold py-2 rounded transition ${
+                        loading
+                            ? "bg-gray-400 cursor-not-allowed"
+                            : "bg-blue-600 hover:bg-blue-700"
+                    }`}
                 >
-                    Login
+                    {loading ? "Logging in..." : "Login"}
                 </button>
             </form>
         </div>
