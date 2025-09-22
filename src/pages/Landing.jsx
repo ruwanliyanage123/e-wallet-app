@@ -49,7 +49,7 @@ export default function Landing() {
                 {/* Features */}
                 <section id="features" className="py-16 px-8">
                     <h3 className="text-2xl font-bold text-center text-white mb-10">
-                        Why Choose Portfolio Hub?
+                        Why Choose e-wallet?
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                         <div className="p-6 rounded-xl shadow bg-black/80 hover:bg-black transition">
@@ -63,7 +63,7 @@ export default function Landing() {
                         </div>
                         <div className="p-6 rounded-xl shadow bg-black/80 hover:bg-black transition">
                             <h4 className="font-bold text-lg mb-2 text-white">
-                                🔒 Secure Login
+                                🔒 Security
                             </h4>
                             <p className="text-gray-300">
                                 Your data is protected with industry-leading authentication and
