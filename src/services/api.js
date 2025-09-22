@@ -73,6 +73,30 @@ export async function getAssets() {
     return res.json();
 }
 
+
+export async function createAsset(payload) {
+    const res = await fetch(`${API_URL}/assets`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders() },
+        body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+        let errorMsg = "Unknown error";
+        try {
+            const data = await res.json();
+            errorMsg = JSON.stringify(data, null, 2);
+        } catch {
+            errorMsg = await res.text();
+        }
+        console.error("Create asset failed:", errorMsg);  // ✅ log backend error
+        throw new Error(errorMsg);
+    }
+
+    return res.json();
+}
+
+
 // ✅ Transactions
 export async function createTransaction(payload) {
     const res = await fetch(`${API_URL}/transactions`, {

@@ -1,42 +1,45 @@
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-
-export default function AssetPieChart({ assets }) {
+export default function AssetTable({ assets }) {
     if (!assets || assets.length === 0) {
-        return <p className="mt-6 text-gray-500">No asset data available</p>;
+        return <p className="mt-6 text-gray-500">No assets yet.</p>;
     }
 
-    // Map assets safely
-    const data = assets.map((a) => ({
-        name: a.type || a.category?.name || a.symbol || "Unknown",
-        value: a.value || 0,
-    }));
-
-    const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#845EC2", "#D65DB1"];
-
     return (
-        <div className="w-full h-64 mt-6 bg-white rounded shadow p-4">
-            <ResponsiveContainer>
-                <PieChart>
-                    <Pie
-                        data={data}
-                        cx="50%"
-                        cy="50%"
-                        labelLine={false}
-                        outerRadius={80}
-                        fill="#8884d8"
-                        dataKey="value"
-                        label={({ name, percent }) =>
-                            `${name}: ${(percent * 100).toFixed(0)}%`
-                        }
-                    >
-                        {data.map((_, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend />
-                </PieChart>
-            </ResponsiveContainer>
+        <div className="mt-6 bg-white rounded shadow overflow-x-auto">
+            <table className="w-full text-left border-collapse">
+                <thead>
+                <tr className="bg-gray-100">
+                    <th className="p-3 border">Name</th>
+                    <th className="p-3 border">Symbol</th>
+                    <th className="p-3 border">Category</th>
+                    <th className="p-3 border">Share Price</th>
+                    <th className="p-3 border">Amount</th>
+                    <th className="p-3 border">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {assets.map((a) => {
+                    const value =
+                        a.sharePrice && a.amount
+                            ? parseFloat(a.sharePrice) * parseFloat(a.amount)
+                            : 0;
+
+                    return (
+                        <tr key={a.id} className="hover:bg-gray-50">
+                            <td className="p-3 border">{a.name}</td>
+                            <td className="p-3 border">{a.symbol}</td>
+                            <td className="p-3 border">{a.category?.name || "-"}</td>
+                            <td className="p-3 border">
+                                {a.sharePrice ? `$${a.sharePrice}` : "-"}
+                            </td>
+                            <td className="p-3 border">{a.amount ?? "-"}</td>
+                            <td className="p-3 border font-semibold">
+                                {value > 0 ? `$${value.toFixed(2)}` : "-"}
+                            </td>
+                        </tr>
+                    );
+                })}
+                </tbody>
+            </table>
         </div>
     );
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import StatCard from "../components/StatCart";
 import AssetTable from "../components/assets/AssetTable";
 import AssetPieChart from "../components/AssetPieChart";
-import { getAssets, getPortfolios } from "../services/api";
+import { getPortfolios, getAssets } from "../services/api";
 
 export default function Dashboard() {
     const [assets, setAssets] = useState([]);
@@ -12,19 +12,44 @@ export default function Dashboard() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const [fetchedAssets, portfolios] = await Promise.all([
-                    getAssets(),
+                const [portfolios, allAssets] = await Promise.all([
                     getPortfolios(),
+                    getAssets(),
                 ]);
 
-                setAssets(fetchedAssets);
+                // 🔹 Example: assume each portfolio has holdings with quantity & avgPrice
+                const portfolio = portfolios[0]; // first portfolio
+                if (portfolio?.holdings?.length > 0) {
+                    const mappedAssets = portfolio.holdings.map((h) => {
+                        const asset = allAssets.find((a) => a.id === h.assetId);
+                        const value = h.quantity * h.avgPrice;
 
-                // Example: sum up values (if your backend doesn’t provide, mock it for now)
-                const totalValue = portfolios.reduce(
-                    (sum, p) => sum + (p.totalValue || 0),
-                    0
-                );
-                setPortfolioValue(totalValue);
+                        return {
+                            id: h.assetId,
+                            name: asset?.name || "Unknown",
+                            symbol: asset?.symbol || "-",
+                            type: asset?.category?.name || "Asset",
+                            value,
+                            allocation: "0%", // calculate later
+                            change: "N/A",
+                        };
+                    });
+
+                    // 🔹 Calculate total portfolio value
+                    const totalValue = mappedAssets.reduce((sum, a) => sum + a.value, 0);
+
+                    // 🔹 Calculate allocation %
+                    const finalAssets = mappedAssets.map((a) => ({
+                        ...a,
+                        allocation: `${((a.value / totalValue) * 100).toFixed(1)}%`,
+                    }));
+
+                    setAssets(finalAssets);
+                    setPortfolioValue(totalValue);
+                } else {
+                    setAssets([]);
+                    setPortfolioValue(0);
+                }
             } catch (err) {
                 console.error("Error loading dashboard:", err);
             } finally {
@@ -34,9 +59,7 @@ export default function Dashboard() {
         fetchData();
     }, []);
 
-    if (loading) {
-        return <p className="p-6">Loading dashboard...</p>;
-    }
+    if (loading) return <p className="p-6">Loading dashboard...</p>;
 
     return (
         <div className="p-6">
