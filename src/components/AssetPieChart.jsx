@@ -5,8 +5,8 @@ const COLORS = ["#4CAF50", "#2196F3", "#FF9800", "#9C27B0", "#E91E63", "#00BCD4"
 export default function AssetPieChart({ assets = [] }) {
     // Compute value safely
     const data = assets.map((a) => {
-        const sharePrice = a.meta?.sharePrice ?? 0;
-        const amount = a.meta?.amount ?? 0;
+        const sharePrice = a.meta?.sharePrice ?? 10;
+        const amount = a.meta?.amount ?? 10;
         const value = sharePrice * amount;
 
         return {
