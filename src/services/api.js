@@ -17,6 +17,10 @@ export async function register(email, password, name) {
     return res.json();
 }
 
+export function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+}
 
 export async function login(email, password) {
     const res = await fetch(`${API_URL}/auth/login`, {

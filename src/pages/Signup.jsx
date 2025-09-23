@@ -13,6 +13,12 @@ export default function Signup() {
         e.preventDefault();
         setError("");
 
+        // ✅ Frontend validation
+        if (password.length < 6) {
+            setError("Password must be at least 6 characters long");
+            return;
+        }
+
         try {
             await register(email, password, name);
 
@@ -51,7 +57,7 @@ export default function Signup() {
 
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Password (min. 6 characters)"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full px-4 py-2 border rounded mb-6 focus:outline-none focus:ring focus:ring-blue-300"
@@ -59,7 +65,7 @@ export default function Signup() {
 
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-green-700 transition"
+                    className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
                 >
                     Create Account
                 </button>

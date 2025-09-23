@@ -1,9 +1,22 @@
+import { useNavigate } from "react-router-dom";
+import { logout } from "../services/api";
+
 export default function Navbar() {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login"); // redirect after logout
+    };
+
     return (
-        <nav className="bg-blue-600 shadow-md px-6 py-4 flex justify-between items-center">
-            <h1 className="text-xl font-bold text-white">e-wallet</h1>
+        <nav className="bg-blue-600 text-white px-6 py-3 flex justify-between items-center shadow">
+            <h1 className="text-lg font-bold">e-wallet</h1>
             <div className="space-x-4">
-                <button className="px-4 py-2 border border-slate-300 text-white font-medium rounded-lg hover:bg-blue-700 transition">
+                <button
+                    onClick={handleLogout}
+                    className="px-4 py-2 bg-blue-700 rounded-lg hover:bg-blue-800 transition"
+                >
                     Logout
                 </button>
             </div>
