@@ -10,6 +10,7 @@ import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import { useState } from "react";
 import { isLoggedIn } from "./utils/auth";
+import Signup from "./pages/Signup";
 
 // ✅ Wrapper for protected routes
 function PrivateRoute({ children }) {
@@ -25,7 +26,7 @@ function App() {
                 {/* Public Pages */}
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
-
+                <Route path="/signup" element={<Signup />} />
                 {/* Protected Dashboard Layout */}
                 <Route
                     path="/dashboard"

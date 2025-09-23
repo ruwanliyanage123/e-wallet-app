@@ -24,6 +24,12 @@ export default function Landing() {
                         >
                             Login
                         </a>
+                        <a
+                            href="/signup"
+                            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                        >
+                            Sign Up
+                        </a>
                     </div>
                 </nav>
 
@@ -38,7 +44,7 @@ export default function Landing() {
                             control of your financial future — all in one place.
                         </p>
                         <a
-                            href="/login"
+                            href="/signup"
                             className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition"
                         >
                             Get Started

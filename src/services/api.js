@@ -8,7 +8,7 @@ function authHeaders() {
 
 // ✅ Auth
 export async function register(email, password, name) {
-    const res = await fetch(`${API_URL}/auth/register`, {
+    const res = await fetch(`http://localhost:4000/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, name }),
@@ -16,6 +16,7 @@ export async function register(email, password, name) {
     if (!res.ok) throw new Error("Registration failed");
     return res.json();
 }
+
 
 export async function login(email, password) {
     const res = await fetch(`${API_URL}/auth/login`, {
