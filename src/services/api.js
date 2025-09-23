@@ -69,38 +69,6 @@ export async function createPortfolio(name) {
     return res.json();
 }
 
-// ✅ Assets
-export async function getAssets() {
-    const res = await fetch(`${API_URL}/assets`, {
-        headers: { ...authHeaders() },
-    });
-    if (!res.ok) throw new Error("Failed to fetch assets");
-    return res.json();
-}
-
-
-export async function createAsset(payload) {
-    const res = await fetch(`${API_URL}/assets`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...authHeaders() },
-        body: JSON.stringify(payload),
-    });
-
-    if (!res.ok) {
-        let errorMsg = "Unknown error";
-        try {
-            const data = await res.json();
-            errorMsg = JSON.stringify(data, null, 2);
-        } catch {
-            errorMsg = await res.text();
-        }
-        console.error("Create asset failed:", errorMsg);  // ✅ log backend error
-        throw new Error(errorMsg);
-    }
-
-    return res.json();
-}
-
 
 // ✅ Transactions
 export async function createTransaction(payload) {
@@ -120,3 +88,31 @@ export async function getTransactions() {
     if (!res.ok) throw new Error("Failed to fetch transactions");
     return res.json();
 }
+
+
+// ✅ Assets
+export async function getAssets() {
+    const res = await fetch(`${API_URL}/assets`, {
+        headers: { ...authHeaders() },
+    });
+    if (!res.ok) throw new Error("Failed to fetch assets");
+    return res.json();
+}
+
+export async function createAsset(asset) {
+    const res = await fetch(`${API_URL}/assets`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders() },
+        body: JSON.stringify({
+            ...asset,
+            categoryId: Number(asset.categoryId), // ✅ ensure Int
+        }),
+    });
+    if (!res.ok) {
+        const error = await res.json();
+        console.error("Create asset failed:", error);
+        throw new Error("Failed to create asset");
+    }
+    return res.json();
+}
+

@@ -1,46 +1,45 @@
-import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-export default function AssetPieChart({ assets }) {
-    const COLORS = [
-        "#9846e5", // Indigo (Stocks)
-        "#4e10b9", // Emerald (Bonds)
-        "#3041ea", // Amber (Crypto)
-        "#4494ef", // Red (Real Estate)
-        "#3B82F6", // Blue (Cash)
-        "#8B5CF6", // Violet
-        "#22D3EE", // Cyan
-    ];
+const COLORS = ["#4CAF50", "#2196F3", "#FF9800", "#9C27B0", "#E91E63", "#00BCD4", "#FFC107"];
+
+export default function AssetPieChart({ assets = [] }) {
+    // Compute value safely
+    const data = assets.map((a) => {
+        const sharePrice = a.meta?.sharePrice ?? 0;
+        const amount = a.meta?.amount ?? 0;
+        const value = sharePrice * amount;
+
+        return {
+            name: a.name,
+            value,
+        };
+    });
 
     return (
-        <div className="my-6 flex justify-center p-4 bg-white rounded-lg shadow">
-            <PieChart width={420} height={300}>
-                <Pie
-                    data={assets}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={90} // ✅ smaller than before
-                    labelLine={false}
-                    label={({ name, percent }) =>
-                        `${name} ${(percent * 100).toFixed(0)}%`
-                    }
-                >
-                    {assets.map((_, index) => (
-                        <Cell
-                            key={`cell-${index}`}
-                            fill={COLORS[index % COLORS.length]}
-                        />
-                    ))}
-                </Pie>
-                <Tooltip
-                    formatter={(value, name) => [
-                        `$${value.toLocaleString()}`,
-                        name,
-                    ]}
-                />
-                <Legend />
-            </PieChart>
+        <div className="w-full h-80 my-6 bg-white p-4 rounded-lg shadow">
+            <ResponsiveContainer>
+                <PieChart>
+                    <Pie
+                        data={data}
+                        dataKey="value"
+                        nameKey="name"
+                        outerRadius={100}
+                        fill="#8884d8"
+                        label={({ name, percent }) =>
+                            `${name} ${(percent * 100).toFixed(0)}%`
+                        }
+                    >
+                        {data.map((_, index) => (
+                            <Cell
+                                key={`cell-${index}`}
+                                fill={COLORS[index % COLORS.length]}
+                            />
+                        ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                </PieChart>
+            </ResponsiveContainer>
         </div>
     );
 }
